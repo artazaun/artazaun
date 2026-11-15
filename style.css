@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    padding: 1.5rem;
+}
+
+/* 1. Automatic Loading Gate */
+#gate {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0b0b0b;
+    z-index: 20;
+    transition: opacity 0.45s ease;
+}
+
+.loader-wrapper {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.brush-track {
+    position: relative;
+    width: 100%;
+    height: 34px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: flex-end;
+}
+
+#paintbrush {
+    position: absolute;
+    left: 0%;
+    bottom: 0;
+    width: 24px;
+    height: 24px;
+    transform-origin: bottom left;
+    animation: paintStroke 0.3s infinite alternate ease-in-out;
+}
+
+@keyframes paintStroke {
+    0% {
+        transform: translate(-3px, 0px) rotate(-12deg);
+    }
+    100% {
+        transform: translate(0px, -2px) rotate(6deg);
+    }
+}
+
+.brush-status-text {
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: #777777;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.2s ease;
+}
+
+.progress-track {
+    width: 100%;
+    height: 14px;
+    background-color: #ffffff;
+    border: 2px solid #2a2a2a;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 0 18px rgba(16, 124, 16, 0.25);
+}
+
+#progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: #107c10;
+}
+
+#progress-text {
+    margin-top: 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #666666;
+}
+
+/* 2. Console Container */
+#console-shell {
+    display: none;
+    width: 100%;
+    max-width: 1050px;
+    min-height: 75vh;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    transition: opacity 0.55s ease;
+}
+
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #222222;
+    padding-bottom: 1.25rem;
+    gap: 1rem;
+}
+
+.brand-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+}
+
+.japanese-sub {
+    font-family: 'RocknRoll One', sans-serif;
+    font-size: 0.85rem;
+    color: #888888;
+}
+
+/* Dashboard Blades */
+#dashboard-view {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 2.5rem 0;
+    flex-grow: 1;
+}
+
+.blade-panel {
+    background-color: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 260px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+}
+
+.blade-panel:hover {
+    border-color: #107c10;
+    background-color: #1b1b1b;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(16, 124, 16, 0.15);
+}
+
+.blade-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #107c10;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+}
+
+.blade-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f0f0f0;
+}
+
+.blade-desc {
+    font-size: 0.82rem;
+    color: #888888;
+    line-height: 1.5;
+    margin-top: 2rem;
+}
+
+/* 3. Kana Practice Mini-Game View */
+#kana-view {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    flex-grow: 1;
+}
+
+.kana-topbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.back-btn {
+    background: none;
+    border: 1px solid #333333;
+    color: #aaaaaa;
+    padding: 0.55rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.mode-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mode-btn {
+    background-color: #161616;
+    border: 1px solid #2e2e2e;
+    color: #888888;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mode-btn.active,
+.mode-btn:hover {
+    border-color: #107c10;
+    color: #ffffff;
+    background-color: #182618;
+}
+
+.streak-badge {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: #cccccc;
+    text-transform: uppercase;
+}
+
+.streak-badge span {
+    color: #2ecc71;
+    font-weight: 700;
+}
+
+/* Character Display Card */
+.kana-card {
+    background-color: #141414;
+    border: 1px solid #2a2a2a;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.script-label {
+    position: absolute;
+    top: 0.85rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: #666666;
+    text-transform: uppercase;
+}
+
+#kana-char {
+    font-family: 'RocknRoll One', sans-serif;
+    font-size: 5.5rem;
+    color: #ffffff;
+    line-height: 1;
+}
+
+/* 4 Multiple Choice Buttons */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 440px;
+}
+
+.option-btn {
+    background-color: #161616;
+    border: 1px solid #333333;
+    color: #ffffff;
+    padding: 1.1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.option-btn:hover:not(:disabled) {
+    border-color: #107c10;
+    background-color: #1e1e1e;
+}
+
+.option-btn.correct {
+    background-color: #107c10;
+    border-color: #2ecc71;
+    color: #ffffff;
+}
+
+.option-btn.wrong {
+    background-color: #7a1414;
+    border-color: #ff3b3b;
+    color: #ffffff;
+}
+
+.dash-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    color: #555555;
+    letter-spacing: 0.15em;
+    border-top: 1px solid #222222;
+    padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    #dashboard-view {
+        grid-template-columns: 1fr;
+    }
+    .blade-panel {
+        min-height: 160px;
+    }
+}
