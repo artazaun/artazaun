@@ -1,186 +1,202 @@
-// Complete Basic Hiragana & Katakana Datasets
-const hiraganaList = [
-    { char: 'あ', romaji: 'a' }, { char: 'い', romaji: 'i' }, { char: 'う', romaji: 'u' }, { char: 'え', romaji: 'e' }, { char: 'お', romaji: 'o' },
-    { char: 'か', romaji: 'ka' }, { char: 'き', romaji: 'ki' }, { char: 'く', romaji: 'ku' }, { char: 'け', romaji: 'ke' }, { char: 'こ', romaji: 'ko' },
-    { char: 'さ', romaji: 'sa' }, { char: 'し', romaji: 'shi' }, { char: 'す', romaji: 'su' }, { char: 'せ', romaji: 'se' }, { char: 'そ', romaji: 'so' },
-    { char: 'た', romaji: 'ta' }, { char: 'ち', romaji: 'chi' }, { char: 'つ', romaji: 'tsu' }, { char: 'て', romaji: 'te' }, { char: 'と', romaji: 'to' },
-    { char: 'な', romaji: 'na' }, { char: 'に', romaji: 'ni' }, { char: 'ぬ', romaji: 'nu' }, { char: 'ね', romaji: 'ne' }, { char: 'の', romaji: 'no' },
-    { char: 'は', romaji: 'ha' }, { char: 'ひ', romaji: 'hi' }, { char: 'ふ', romaji: 'fu' }, { char: 'へ', romaji: 'he' }, { char: 'ほ', romaji: 'ho' },
-    { char: 'ま', romaji: 'ma' }, { char: 'み', romaji: 'mi' }, { char: 'む', romaji: 'mu' }, { char: 'め', romaji: 'me' }, { char: 'も', romaji: 'mo' },
-    { char: 'や', romaji: 'ya' }, { char: 'ゆ', romaji: 'yu' }, { char: 'よ', romaji: 'yo' },
-    { char: 'ら', romaji: 'ra' }, { char: 'り', romaji: 'ri' }, { char: 'る', romaji: 'ru' }, { char: 'れ', romaji: 're' }, { char: 'ろ', romaji: 'ro' },
-    { char: 'わ', romaji: 'wa' }, { char: 'を', romaji: 'wo' }, { char: 'ん', romaji: 'n' }
-].map(item => ({ ...item, type: 'Hiragana' }));
-
-const katakanaList = [
-    { char: 'ア', romaji: 'a' }, { char: 'イ', romaji: 'i' }, { char: 'ウ', romaji: 'u' }, { char: 'エ', romaji: 'e' }, { char: 'オ', romaji: 'o' },
-    { char: 'カ', romaji: 'ka' }, { char: 'キ', romaji: 'ki' }, { char: 'ク', romaji: 'ku' }, { char: 'ケ', romaji: 'ke' }, { char: 'コ', romaji: 'ko' },
-    { char: 'サ', romaji: 'sa' }, { char: 'シ', romaji: 'shi' }, { char: 'ス', romaji: 'su' }, { char: 'セ', romaji: 'se' }, { char: 'ソ', romaji: 'so' },
-    { char: 'タ', romaji: 'ta' }, { char: 'チ', romaji: 'chi' }, { char: 'ツ', romaji: 'tsu' }, { char: 'テ', romaji: 'te' }, { char: 'ト', romaji: 'to' },
-    { char: 'ナ', romaji: 'na' }, { char: 'ニ', romaji: 'ni' }, { char: 'ヌ', romaji: 'nu' }, { char: 'ネ', romaji: 'ne' }, { char: 'ノ', romaji: 'no' },
-    { char: 'ハ', romaji: 'ha' }, { char: 'ヒ', romaji: 'hi' }, { char: 'フ', romaji: 'fu' }, { char: 'ヘ', romaji: 'he' }, { char: 'ホ', romaji: 'ho' },
-    { char: 'マ', romaji: 'ma' }, { char: 'ミ', romaji: 'mi' }, { char: 'ム', romaji: 'mu' }, { char: 'メ', romaji: 'me' }, { char: 'モ', romaji: 'mo' },
-    { char: 'ヤ', romaji: 'ya' }, { char: 'ユ', romaji: 'yu' }, { char: 'ヨ', romaji: 'yo' },
-    { char: 'ら', romaji: 'ra' }, { char: 'り', romaji: 'ri' }, { char: 'る', romaji: 'ru' }, { char: 'れ', romaji: 're' }, { char: 'ろ', romaji: 'ro' },
-    { char: 'ワ', romaji: 'wa' }, { char: 'ヲ', romaji: 'wo' }, { char: 'ン', romaji: 'n' }
-].map(item => ({ ...item, type: 'Katakana' }));
-
-let currentMode = 'all';
-let currentQuestion = null;
-let streak = 0;
-let isAnswering = false;
-let hasEntered = false;
-
-function enterDashboard() {
-    if (hasEntered) return;
-    hasEntered = true;
-
-    const gate = document.getElementById('gate');
-    const shell = document.getElementById('console-shell');
+// Real-Time Taskbar Clock & Date
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
     
-    gate.style.opacity = '0';
-    setTimeout(() => {
-        gate.style.display = 'none';
-        shell.style.display = 'flex';
-        setTimeout(() => {
-            shell.style.opacity = '1';
-        }, 40);
-    }, 400);
+    const month = String(now.getMonth() + 1);
+    const day = String(now.getDate());
+    const year = now.getFullYear();
+
+    document.getElementById('clock-time').textContent = `${hours}:${minutes} ${ampm}`;
+    document.getElementById('clock-date').textContent = `${month}/${day}/${year}`;
 }
 
-// Boot loader (duration can be changed here easily)
-(function startBootLoader() {
-    const fill = document.getElementById('progress-fill');
-    const brush = document.getElementById('paintbrush');
-    const text = document.getElementById('progress-text');
-    const statusEl = document.getElementById('status-text');
+setInterval(updateClock, 1000);
+updateClock();
 
-    const duration = 3200; // <-- CHANGE LOADING SPEED HERE (milliseconds)
-    const startTime = Date.now();
+// Global Language State ('en' or 'jp')
+let currentGlobalLang = 'en';
 
-    const messages = [
-        "Just a second...",
-        "Taking you to another world",
-        "Almost there"
-    ];
+// Window Management
+function openWindow(type) {
+    const win = document.getElementById('win-window');
+    const title = document.getElementById('win-title');
+    const content = document.getElementById('win-content');
 
-    let lastMsgIndex = 0;
+    win.style.display = 'flex';
 
-    const timer = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const rawProgress = Math.min(elapsed / duration, 1);
-        const percent = Math.round(rawProgress * 100);
+    if (type === 'wardrobe') {
+        title.textContent = 'artazaun // wardrobe archive';
+        content.innerHTML = `
+            <div class="editorial-grid">
+                <!-- Top Row - Item 1: Aelfric Eden Shirt -->
+                <div class="lookbook-item">
+                    <a href="https://www.aelfriceden.com" target="_blank" class="item-image-box" style="text-decoration: none;">
+                        <img src="wardrobe items/IMG_3393.JPG" alt="Aelfric Eden Plaid Shirt">
+                    </a>
+                    <div class="item-meta">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="item-title">AELFRIC EDEN // PLAID SHIRT</span>
+                            <span style="font-size: 9px; background: #111; color: #fff; padding: 2px 6px; border-radius: 2px; font-weight: 600; letter-spacing: 0.5px;">SOLD OUT</span>
+                        </div>
+                        <div class="item-desc" 
+                             data-en="By far one of my favorite shirts. The bird houses are a really nice touch and will certainly bring some life into your outfit." 
+                             data-jp="一番お気に入りのシャツの一つ。鳥小屋のデザインが良いアクセントになって、コーディネートに間違いなく個性をプラスしてくれる。">
+                            By far one of my favorite shirts. The bird houses are a really nice touch and will certainly bring some life into your outfit.
+                        </div>
+                    </div>
+                </div>
 
-        if (fill) fill.style.width = percent + '%';
-        if (brush) brush.style.left = Math.min(percent, 92) + '%';
-        if (text) text.textContent = percent + '%';
+                <!-- Top Row - Slot 2 -->
+                <div class="lookbook-item">
+                    <div class="item-image-box">
+                        <span class="empty-slot-content">+ ADD ITEM 02</span>
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-title">ARCHIVE SLOT 02</span>
+                        <div class="item-desc" data-en="Awaiting curation..." data-jp="キュレーション待ち...">Awaiting curation...</div>
+                    </div>
+                </div>
 
-        let msgIndex = 0;
-        if (percent >= 70) {
-            msgIndex = 2;
-        } else if (percent >= 35) {
-            msgIndex = 1;
-        }
+                <!-- Top Row - Slot 3 -->
+                <div class="lookbook-item">
+                    <div class="item-image-box">
+                        <span class="empty-slot-content">+ ADD ITEM 03</span>
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-title">ARCHIVE SLOT 03</span>
+                        <div class="item-desc" data-en="Awaiting curation..." data-jp="キュレーション待ち...">Awaiting curation...</div>
+                    </div>
+                </div>
 
-        if (msgIndex !== lastMsgIndex && statusEl) {
-            lastMsgIndex = msgIndex;
-            statusEl.textContent = messages[msgIndex];
-        }
+                <!-- Top Row - Slot 4 -->
+                <div class="lookbook-item">
+                    <div class="item-image-box">
+                        <span class="empty-slot-content">+ ADD ITEM 04</span>
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-title">ARCHIVE SLOT 04</span>
+                        <div class="item-desc" data-en="Awaiting curation..." data-jp="キュレーション待ち...">Awaiting curation...</div>
+                    </div>
+                </div>
 
-        if (rawProgress >= 1) {
-            clearInterval(timer);
-            setTimeout(enterDashboard, 250);
-        }
-    }, 30);
+                <!-- Bottom Row - Slot 5 -->
+                <div class="lookbook-item">
+                    <div class="item-image-box">
+                        <span class="empty-slot-content">+ ADD ITEM 05</span>
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-title">ARCHIVE SLOT 05</span>
+                        <div class="item-desc" data-en="Awaiting curation..." data-jp="キュレーション待ち...">Awaiting curation...</div>
+                    </div>
+                </div>
 
-    setTimeout(enterDashboard, 4000);
-})();
+                <!-- Bottom Row - Slot 6 -->
+                <div class="lookbook-item">
+                    <div class="item-image-box">
+                        <span class="empty-slot-content">+ ADD ITEM 06</span>
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-title">ARCHIVE SLOT 06</span>
+                        <div class="item-desc" data-en="Awaiting curation..." data-jp="キュレーション待ち...">Awaiting curation...</div>
+                    </div>
+                </div>
 
-function openKanaPractice() {
-    document.getElementById('dashboard-view').style.display = 'none';
-    document.getElementById('kana-view').style.display = 'flex';
-    nextQuestion();
-}
+                <!-- Bottom Row - Slot 7 -->
+                <div class="lookbook-item">
+                    <div class="item-image-box">
+                        <span class="empty-slot-content">+ ADD ITEM 07</span>
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-title">ARCHIVE SLOT 07</span>
+                        <div class="item-desc" data-en="Awaiting curation..." data-jp="キュレーション待ち...">Awaiting curation...</div>
+                    </div>
+                </div>
 
-function backToDashboard() {
-    document.getElementById('kana-view').style.display = 'none';
-    document.getElementById('dashboard-view').style.display = 'grid';
-}
-
-function setMode(mode) {
-    currentMode = mode;
-    document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-    if (mode === 'all') document.getElementById('btn-all').classList.add('active');
-    if (mode === 'hiragana') document.getElementById('btn-hira').classList.add('active');
-    if (mode === 'katakana') document.getElementById('btn-kata').classList.add('active');
-    nextQuestion();
-}
-
-function getPool() {
-    if (currentMode === 'hiragana') return hiraganaList;
-    if (currentMode === 'katakana') return katakanaList;
-    return [...hiraganaList, ...katakanaList];
-}
-
-function nextQuestion() {
-    isAnswering = false;
-    const pool = getPool();
-    
-    let candidate;
-    do {
-        candidate = pool[Math.floor(Math.random() * pool.length)];
-    } while (currentQuestion && candidate.char === currentQuestion.char);
-    
-    currentQuestion = candidate;
-
-    document.getElementById('script-type').textContent = currentQuestion.type;
-    document.getElementById('kana-char').textContent = currentQuestion.char;
-
-    const wrongOptions = new Set();
-    while (wrongOptions.size < 3) {
-        const randomRomaji = pool[Math.floor(Math.random() * pool.length)].romaji;
-        if (randomRomaji !== currentQuestion.romaji) {
-            wrongOptions.add(randomRomaji);
-        }
+                <!-- Bottom Row - Slot 8 -->
+                <div class="lookbook-item">
+                    <div class="item-image-box">
+                        <span class="empty-slot-content">+ ADD ITEM 08</span>
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-title">ARCHIVE SLOT 08</span>
+                        <div class="item-desc" data-en="Awaiting curation..." data-jp="キュレーション待ち...">Awaiting curation...</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (type === 'japanese') {
+        title.textContent = 'artazaun // japanese immersion';
+        content.innerHTML = '<div style="padding: 20px; font-family: monospace;">Anki decks and kana modules go here.</div>';
+    } else if (type === 'photography') {
+        title.textContent = 'artazaun // photography archive';
+        content.innerHTML = '<div style="padding: 20px; font-family: monospace;">Street photography lookbooks go here.</div>';
     }
+}
 
-    const choices = [currentQuestion.romaji, ...Array.from(wrongOptions)]
-        .sort(() => Math.random() - 0.5);
-
-    const container = document.getElementById('options-container');
-    container.innerHTML = '';
-
-    choices.forEach(choice => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = choice;
-        btn.onclick = () => checkAnswer(btn, choice);
-        container.appendChild(btn);
+// Global JP/ENG Language Toggle Switch
+function toggleGlobalLanguage() {
+    currentGlobalLang = currentGlobalLang === 'en' ? 'jp' : 'en';
+    const descElements = document.querySelectorAll('.item-desc');
+    
+    descElements.forEach(el => {
+        const text = el.getAttribute(`data-${currentGlobalLang}`);
+        if (text) {
+            el.textContent = text;
+        }
     });
 }
 
-function checkAnswer(selectedBtn, chosenRomaji) {
-    if (isAnswering) return;
-    isAnswering = true;
+function closeWindow() {
+    document.getElementById('win-window').style.display = 'none';
+}
 
-    const allButtons = document.querySelectorAll('.option-btn');
-    allButtons.forEach(b => b.disabled = true);
+function minimizeWindow() {
+    document.getElementById('win-window').style.display = 'none';
+}
 
-    if (chosenRomaji === currentQuestion.romaji) {
-        selectedBtn.classList.add('correct');
-        streak++;
-        document.getElementById('streak-count').textContent = streak;
-        setTimeout(nextQuestion, 450);
+function maximizeWindow() {
+    const win = document.getElementById('win-window');
+    if (win.style.width === '100vw') {
+        win.style.width = '96vw';
+        win.style.height = '93vh';
+        win.style.top = '2vh';
+        win.style.left = '2vw';
     } else {
-        selectedBtn.classList.add('wrong');
-        streak = 0;
-        document.getElementById('streak-count').textContent = streak;
-        
-        allButtons.forEach(b => {
-            if (b.textContent === currentQuestion.romaji) {
-                b.classList.add('correct');
-            }
-        });
-        setTimeout(nextQuestion, 1100);
+        win.style.width = '100vw';
+        win.style.height = 'calc(100vh - 40px)';
+        win.style.top = '0';
+        win.style.left = '0';
+        win.style.borderRadius = '0';
     }
+}
+
+// Window Dragging Functionality
+let isDragging = false;
+let offsetX, offsetY;
+
+function startDrag(e) {
+    isDragging = true;
+    const win = document.getElementById('win-window');
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+
+    document.addEventListener('mousemove', dragWindow);
+    document.addEventListener('mouseup', stopDrag);
+}
+
+function dragWindow(e) {
+    if (!isDragging) return;
+    const win = document.getElementById('win-window');
+    win.style.left = (e.clientX - offsetX) + 'px';
+    win.style.top = (e.clientY - offsetY) + 'px';
+}
+
+function stopDrag() {
+    isDragging = false;
+    document.removeEventListener('mousemove', dragWindow);
+    document.removeEventListener('mouseup', stopDrag);
 }

@@ -3,102 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>artazaun</title>
-    
-    <!-- Google Fonts: Inter + RocknRoll One -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=RocknRoll+One&display=swap" rel="stylesheet">
-
-    <!-- External Stylesheet -->
+    <title>artazaun // digital magazine</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Desktop Area -->
+   <div id="desktop">
+    <!-- Top-Right Copyright & Curation Disclaimer -->
+    <div class="desktop-disclaimer">
+        All product imagery belongs to respective brands. Curated for editorial discovery. Non-commercial.
+    </div>
+        <!-- Desktop Folders -->
+        <div class="desktop-icon" onclick="openWindow('wardrobe')">
+            <div class="folder-icon"></div>
+            <span>Wardrobe</span>
+        </div>
 
-    <!-- Automatic Loading Screen -->
-    <div id="gate">
-        <div class="loader-wrapper">
-            <div class="brush-track">
-                <!-- Animated Paintbrush SVG -->
-                <svg id="paintbrush" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18.5 2.5C19.6 1.4 21.4 1.4 22.5 2.5C23.6 3.6 23.6 5.4 22.5 6.5L13 16L9 12L18.5 2.5Z" fill="#d4d4d4"/>
-                    <path d="M9 12L13 16L10.8 18.2L6.8 14.2L9 12Z" fill="#777777"/>
-                    <path d="M6.8 14.2L10.8 18.2C9.5 20.5 6.2 21.8 2 22C2.2 17.8 3.5 14.5 6.8 14.2Z" fill="#107c10"/>
-                </svg>
-                <!-- Rotating Status Text -->
-                <div class="brush-status-text" id="status-text">Just a second...</div>
+        <div class="desktop-icon" onclick="openWindow('japanese')">
+            <div class="folder-icon"></div>
+            <span>Learn Japanese</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openWindow('photography')">
+            <div class="folder-icon"></div>
+            <span>Photography</span>
+        </div>
+
+        <!-- Fullscreen Editorial Lookbook Window -->
+        <div id="win-window" class="window" style="display: none;">
+            <div class="window-header" onmousedown="startDrag(event)">
+                <span id="win-title">artazaun // wardrobe archive</span>
+                <div class="window-controls">
+                    <button class="win-btn minimize" onclick="minimizeWindow()">&#8211;</button>
+                    <button class="win-btn maximize" onclick="maximizeWindow()">&#9633;</button>
+                    <button class="win-btn close" onclick="closeWindow()">&#10005;</button>
+                </div>
             </div>
-            <div class="progress-track">
-                <div id="progress-fill"></div>
+            
+            <!-- Window Toolbar / Global Controls -->
+            <div class="window-toolbar">
+                <span class="toolbar-path">C:\artazaun\wardrobe\</span>
+                <button class="global-lang-btn" onclick="toggleGlobalLanguage()">🌐 JP / ENG</button>
             </div>
-            <div id="progress-text">0%</div>
+
+            <div class="window-body" id="win-content">
+                <!-- Content injected dynamically -->
+            </div>
         </div>
     </div>
 
-    <!-- Main Console Shell -->
-    <div id="console-shell">
-        <div class="dash-header">
-            <div class="brand-title">artazaun</div>
-            <div class="japanese-sub">アルタザーン // 学習ラボ</div>
-        </div>
+    <!-- Windows 7 Taskbar -->
+    <div id="taskbar">
+        <button class="start-button">
+            <div class="start-orb"></div>
+        </button>
+        
+        <div class="taskbar-center" id="taskbar-apps"></div>
 
-        <!-- VIEW A: Xbox Dashboard Blades -->
-        <div id="dashboard-view">
-            <div class="blade-panel" onclick="openKanaPractice()">
-                <div>
-                    <div class="blade-tag">ACTIVE MODULE</div>
-                    <div class="blade-title">01 // Kana Practice</div>
-                </div>
-                <div class="blade-desc">Randomized Hiragana &amp; Katakana recognition drill. 4-choice phonetic speed test.</div>
+        <div class="taskbar-tray">
+            <div class="tray-icons">
+                <span class="tray-icon">&#128266;</span>
+                <span class="tray-icon">&#128421;</span>
             </div>
-
-            <div class="blade-panel" onclick="alert('Grammar Chunks archive coming soon.')">
-                <div>
-                    <div class="blade-tag">IN DEVELOPMENT</div>
-                    <div class="blade-title">02 // Chunk Sandbox</div>
-                </div>
-                <div class="blade-desc">Multi-word Japanese sentence patterns and immersion breakdowns.</div>
+            <div class="tray-clock" id="taskbar-clock">
+                <div id="clock-time">00:00</div>
+                <div id="clock-date">00/00/0000</div>
             </div>
-
-            <div class="blade-panel" onclick="alert('Visual Archive coming soon.')">
-                <div>
-                    <div class="blade-tag">LOCKED</div>
-                    <div class="blade-title">03 // Visual Archive</div>
-                </div>
-                <div class="blade-desc">Photography, lighting studies, and editorial lookbooks.</div>
-            </div>
-        </div>
-
-        <!-- VIEW B: Kana Practice Game -->
-        <div id="kana-view">
-            <div class="kana-topbar">
-                <button class="back-btn" onclick="backToDashboard()">← Dashboard</button>
-                
-                <div class="mode-group">
-                    <button class="mode-btn active" id="btn-all" onclick="setMode('all')">Both</button>
-                    <button class="mode-btn" id="btn-hira" onclick="setMode('hiragana')">Hiragana</button>
-                    <button class="mode-btn" id="btn-kata" onclick="setMode('katakana')">Katakana</button>
-                </div>
-
-                <div class="streak-badge">Streak: <span id="streak-count">0</span></div>
-            </div>
-
-            <div class="kana-card">
-                <div class="script-label" id="script-type">HIRAGANA</div>
-                <div id="kana-char">か</div>
-            </div>
-
-            <div class="options-grid" id="options-container"></div>
-        </div>
-
-        <div class="dash-footer">
-            <span>STATUS: ONLINE</span>
-            <span>ARTAZAUN.COM // 幻想的</span>
         </div>
     </div>
 
-    <!-- External JavaScript File -->
     <script src="app.js"></script>
-
 </body>
 </html>
