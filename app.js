@@ -35,7 +35,7 @@ function openWindow(type) {
                 <!-- Top Row - Item 1: Aelfric Eden Plaid Embroidery Shirt -->
                 <div class="lookbook-item">
                     <a href="https://www.aelfriceden.com" target="_blank" class="item-image-box" style="text-decoration: none;">
-                        <img src="wardrobe items/IMG_3393.jpeg" alt="Aelfric Eden Plaid Embroidery Shirt">
+                        <img src="wardrobe items/img_3393.jpeg" alt="Aelfric Eden Plaid Embroidery Shirt">
                     </a>
                     <div class="item-meta">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
