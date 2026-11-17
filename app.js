@@ -32,14 +32,14 @@ function openWindow(type) {
         title.textContent = 'artazaun // wardrobe archive';
         content.innerHTML = `
             <div class="editorial-grid">
-                <!-- Top Row - Item 1: Aelfric Eden Shirt -->
+                <!-- Top Row - Item 1: Aelfric Eden Plaid Embroidery Shirt -->
                 <div class="lookbook-item">
                     <a href="https://www.aelfriceden.com" target="_blank" class="item-image-box" style="text-decoration: none;">
                         <img src="wardrobe items/IMG_3393.jpeg" alt="Aelfric Eden Plaid Embroidery Shirt">
                     </a>
                     <div class="item-meta">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span class="item-title">AELFRIC EDEN // PLAID SHIRT</span>
+                            <span class="item-title">AELFRIC EDEN PLAID EMBROIDERY SHIRT</span>
                             <span style="font-size: 9px; background: #111; color: #fff; padding: 2px 6px; border-radius: 2px; font-weight: 600; letter-spacing: 0.5px;">SOLD OUT</span>
                         </div>
                         <div class="item-desc" 
